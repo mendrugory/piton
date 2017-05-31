@@ -1,0 +1,9 @@
+language: elixir
+elixir:
+  - 1.4.0
+sudo: false
+notifications:
+  recipients:
+    - mendrugory@gmail.com
+otp_release:
+- 19.0
