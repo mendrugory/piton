@@ -4,7 +4,7 @@ defmodule Mix.Tasks.Piton.Requirements do
   `Mix.Task` which will get the dependencies of your Python project
   """
 
-  @shortdoc "It will will get the dependencies of your Python project. The pip's full path and the requirements.txt path have to be given as 1st and 2nd arguments"
+  @shortdoc "It will get the dependencies of your Python project. The pip's full path and the requirements.txt path have to be given as 1st and 2nd arguments"
   def run(args) do
     case args do
       [pip_path, requirements_path] -> get_requirements(pip_path, requirements_path)
