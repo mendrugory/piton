@@ -16,6 +16,10 @@ defmodule Piton.Mixfile do
      source_url: "https://github.com/mendrugory/piton"]]
   end
 
+  def application do
+    [extra_applications: [:logger]]
+  end
+
   defp deps() do
     [{:erlport, "~> 0.9.8"},
     {:earmark, ">= 0.0.0", only: :dev},

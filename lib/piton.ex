@@ -51,18 +51,15 @@ defmodule Piton do
 ### Run a Pool
   Pay attention to the number of Pythons you want to run in parallel. It does not exist an optimal number, maybe it is the
   number of cores, maybe half or maybe double. Test it with your application.
-  ```elixir
-  {:ok, pool} = Piton.Pool.start_link([module: MyPoolPort, pool_number: pool_number], [])
-  ```
+      {:ok, pool} = Piton.Pool.start_link([module: MyPoolPort, pool_number: pool_number], [])
+
 ### Call a Port (No pool)
-  ```elixir
-  iex> MyCustomPort.execute(pid_of_the_port, python_module, python_function, list_of_arguments_of_python_function)
-  ```
+      MyCustomPort.execute(pid_of_the_port, python_module, python_function, list_of_arguments_of_python_function)
+
 
 ### Call a Pool
-  ```elixir
-  iex> Piton.Pool.execute(pid_of_the_pool, elixir_function, list_of_arguments_of_elixir_function)
-  ```
+      Piton.Pool.execute(pid_of_the_pool, elixir_function, list_of_arguments_of_elixir_function)
+
 
 ## Test
   Run the tests.
