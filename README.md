@@ -20,7 +20,7 @@
     
 
 ## How to use it
-  Define your own `port`
+  Define your own port
   
   * The Easiest one
   ```elixir
