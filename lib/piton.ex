@@ -60,6 +60,12 @@ defmodule Piton do
 ### Call a Pool
       Piton.Pool.execute(pid_of_the_pool, elixir_function, list_of_arguments_of_elixir_function)
 
+## Tasks
+  Some `Mix.Tasks` have been included in order to facilitate the integration of a python project
+
+  * `Mix.Tasks.Piton.Venv`: It creates a Python Virtual Environment.
+  * `Mix.Tasks.Piton.Pip`: It upgrades the Python pip.
+  * `Mix.Tasks.Piton.Requirements`: It gets the dependencies of the Python project.
 
 ## Test
   Run the tests.

@@ -22,3 +22,5 @@ erl_crash.dump
 piton.iml
 .idea
 test/venv
+*.pyc
+__pycache__
