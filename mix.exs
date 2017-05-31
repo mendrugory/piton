@@ -8,7 +8,7 @@ defmodule Piton.Mixfile do
      version: @version,
      elixir: "~> 1.4",
      package: package(),
-     description: "Run your Python algorithms in parallel and forget the GIL",
+     description: "Run your Python algorithms in parallel and avoid the GIL",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
