@@ -1,18 +1,35 @@
 defmodule Piton.Port do
   @moduledoc"""
-  Piton.Port is a `GenServer` which will be on charge of the open Python Port.
+  `Piton.Port` is a `GenServer` which will be on charge of the Python Port.
 
-  `args` arguments is a Keyword List and has to contain:
-    * path: Path to the folder where the python scripts are.
-    * python: python executable
+  It is prepared to be the base of your own Port.
 
-
-  It is prepared to be the base of your own Port:
-
+  ## Make your own Port
+  ```elixir
   defmodule MyPort do
     use Piton.PythonPort
     # rest of the code if it is need.
   end
+  ```
+  The arguments has to be in a Keyword List and it has to contain:
+       path: Path to the folder where the python scripts are.
+       python: python executable
+
+  If your port is going to run in a `Piton.Pool` (highly recommended) it has to have a *start()* function
+  and it has not to be linked.
+
+  ```elixir
+  defmodule MyPoolPort do
+    use Piton.Port
+    def start(), do: MyPoolPort.start([path: Path.expand("python_folder"), python: "python"], [])
+    def fun(n), do: MyPoolPort.execute(__MODULE__, :functions, :fun, [n])
+  end
+  ```
+
+  ## Run a Python code using directly the port (no pool)
+  ```elixir
+  iex> MyPort.execute(pid_of_the_port, python_module, python_function, list_of_arguments_of_python_function)
+  ```
   """
 
   defmacro __using__(_) do
@@ -32,11 +49,13 @@ defmodule Piton.Port do
       @doc """
       It will return the erl port
       """
+      @spec get_port(pid) :: pid
       def get_port(pid), do: GenServer.call(pid, :get_python_port)
 
       @doc """
       It will execute the arguments in the given function of the given module using the given port.
       """
+      @spec execute(pid, atom, atom, list, timeout) :: any
       def execute(pid, python_module, python_function, python_arguments, timeout \\ @timeout) do
         GenServer.call(pid, {:execute, python_module, python_function, python_arguments}, timeout)
       end

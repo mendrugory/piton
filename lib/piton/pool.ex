@@ -1,10 +1,25 @@
 defmodule Piton.Pool do
   @moduledoc"""
-  Piton.Pool is a `GenServer` which will be on charge of a pool of Python Ports.
+  `Piton.Pool` is a `GenServer` which will be on charge of a pool of `Piton.Port`s.
 
-  `args` arguments is a Keyword List and has to contain:
-    * module: Module which has to `use Piton.Port`
-    * pool_number: number of available Pythons.
+  `Piton.Pool` will launch as many Python processes as you define in `pool_number` and it will share them between all the request (executions)
+  it receives. It is also protected from Python exceptions, therefore, if a Python code raises an exception that can close the port, a new one
+  will be opened and added it to the pool.
+
+  ## Start a Pool
+  ```elixir
+    {:ok, pool} = Piton.Pool.start_link([module: MyPoolPort, pool_number: pool_number], [])
+  ```
+  The arguments has to be in a Keyword List and it has to contain:
+      module: Module which has to `use Piton.Port`
+      pool_number: number of available Pythons.
+
+  ## Run a Python code using the pool
+  ```elixir
+    Piton.Pool.execute(pid_of_the_pool, elixir_function, list_of_arguments_of_elixir_function)
+  ```
+  ### Timeout
+  `Piton.Port.execution` function has a `timeout`, this timeout will be passes as timeout to the `Piton.Port.execution` function.
   """
 
   @timeout          5000
@@ -20,18 +35,21 @@ defmodule Piton.Pool do
   @doc """
   It will execute the arguments in the given function of the given module using the given pool of ports.
   """
+  @spec execute(pid, atom, list, timeout) :: {:ok, any} | {:error, any}
   def execute(pid, python_function, python_arguments, timeout \\ @timeout) do
     GenServer.call(pid, {:execute, python_function, python_arguments, timeout}, timeout)
   end
 
   @doc """
-  It will return the number of available ports
+  It will return the number of available ports.
   """
+  @spec get_number_of_available_ports(pid) :: integer
   def get_number_of_available_ports(pid), do: GenServer.call(pid, :number_of_available_ports)
 
   @doc """
-  It will return the number of processes that are waiting for an available port
+  It will return the number of processes that are waiting for an available port.
   """
+  @spec get_number_of_waiting_processes(pid) :: integer
   def get_number_of_waiting_processes(pid), do: GenServer.call(pid, :number_of_waiting_processes)
 
   def init([module: module, pool_number: pool_number]) do

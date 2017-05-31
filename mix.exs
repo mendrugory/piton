@@ -7,23 +7,26 @@ defmodule Piton.Mixfile do
     [app: :piton,
      version: @version,
      elixir: "~> 1.4",
+     package: package(),
+     description: "Run your Python algorithms in parallel and forget the GIL",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     docs: [main: "Piton", source_ref: "v#{@version}",
+     source_url: "https://github.com/mendrugory/piton"]]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
-  def application do
-    # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
-  end
-
-  defp deps do
+  defp deps() do
     [{:erlport, "~> 0.9.8"},
     {:earmark, ">= 0.0.0", only: :dev},
     {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
+
+  defp package() do
+    %{licenses: ["MIT"],
+      maintainers: ["Gonzalo Jiménez Fuentes"],
+      links: %{"GitHub" => "https://github.com/mendrugory/piton"}}
+  end
+  
 end
