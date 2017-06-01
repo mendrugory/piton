@@ -4,7 +4,7 @@ defmodule PitonPoolTest do
 
   test "1 call to the Pool (Calls < Pool)" do
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: 2], [])
-    result = Piton.Pool.execute(pool, :fib, [35])
+    result = Piton.Pool.execute(pool, :fib, [36])
     assert(result == {:ok, 14930352})
   end
 
@@ -12,7 +12,7 @@ defmodule PitonPoolTest do
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: 2], [])
     result =
       (for i <- 1..2, do: i)
-      |> Enum.map(fn _ -> Task.async(fn -> Piton.Pool.execute(pool, :fib, [35], 60000) end) end)
+      |> Enum.map(fn _ -> Task.async(fn -> Piton.Pool.execute(pool, :fib, [36], 60000) end) end)
       |> Enum.map(fn task -> Task.await(task) end)
     assert(result == [{:ok, 14930352}, {:ok, 14930352}])
   end
@@ -22,7 +22,7 @@ defmodule PitonPoolTest do
     timeout = 50000
     result =
       (for i <- 1..10, do: i)
-      |> Enum.map(fn _ -> Task.async(fn -> Piton.Pool.execute(pool, :fib, [35], timeout) end) end)
+      |> Enum.map(fn _ -> Task.async(fn -> Piton.Pool.execute(pool, :fib, [36], timeout) end) end)
       |> Enum.map(fn task -> Task.await(task, timeout) end)
     assert(result == [{:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}])
   end
@@ -53,7 +53,7 @@ defmodule PitonPoolTest do
     |> Enum.map(fn task -> Task.await(task, timeout) end)
     result =
       (for i <- 1..10, do: i)
-      |> Enum.map(fn _ -> Task.async(fn -> Piton.Pool.execute(pool, :fib, [35], timeout) end) end)
+      |> Enum.map(fn _ -> Task.async(fn -> Piton.Pool.execute(pool, :fib, [36], timeout) end) end)
       |> Enum.map(fn task -> Task.await(task, timeout) end)
     assert(result == [{:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}, {:ok, 14930352}])
   end

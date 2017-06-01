@@ -10,7 +10,7 @@ defmodule PitonTest do
     end
     {:ok, _} = MyPythonFibCalculator.start_link()
     result = MyPythonFibCalculator.fib(10)
-    assert(result == 89)
+    assert(result == 55)
   end
 
 
