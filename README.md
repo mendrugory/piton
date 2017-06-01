@@ -45,7 +45,7 @@
   defmodule MyPoolPort do
     use Piton.Port
     def start(), do: MyPoolPort.start([path: Path.expand("python_folder"), python: "python"], [])
-    def fun(n), do: MyPoolPort.execute(__MODULE__, :functions, :fun, [n])
+    def fun(pid, n), do: MyPoolPort.execute(pid, :functions, :fun, [n])
   end
   ```
   
