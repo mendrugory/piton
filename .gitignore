@@ -24,3 +24,4 @@ piton.iml
 test/venv
 *.pyc
 __pycache__
+.elixir_ls

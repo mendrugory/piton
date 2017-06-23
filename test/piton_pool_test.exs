@@ -3,12 +3,14 @@ defmodule PitonPoolTest do
   
 
   test "1 call to the Pool (Calls < Pool)" do
+    IO.puts "Running test: 1 call to the Pool (Calls < Pool) ..."
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: 2], [])
     result = Piton.Pool.execute(pool, :fib, [35])
     assert(result == {:ok, 9227465})
   end
 
   test "2 calls to the Pool (Calls == Pool)" do
+    IO.puts "Running test: 2 calls to the Pool (Calls == Pool) ..."
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: 2], [])
     result =
       (for i <- 1..2, do: i)
@@ -18,6 +20,7 @@ defmodule PitonPoolTest do
   end
 
   test "6 calls to the Pool (Calls > Pool)" do
+    IO.puts "Running test: 6 calls to the Pool (Calls > Pool) ..."
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: 2], [])
     timeout = 50000
     result =
@@ -28,12 +31,14 @@ defmodule PitonPoolTest do
   end
 
   test "Raising a python exception" do
+    IO.puts "Running test: Raising a python exception ..."
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: 2], [])
     result = Piton.Pool.execute(pool, :fib, [-1])
     assert(elem(result, 0) == :error)
   end
 
   test "Break all the ports" do
+    IO.puts "Running test: Break all the ports ..."
     pool_number = 2
     timeout = 50000
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: pool_number], [])
@@ -45,6 +50,7 @@ defmodule PitonPoolTest do
   end
 
   test "Same exceptions as the number of pythons and some valid operations after" do
+    IO.puts "Running test: Same exceptions as the number of pythons and some valid operations after ..."
     pool_number = 2
     timeout = 50000
     {:ok, pool} = Piton.Pool.start_link([module: MyPythonFibCalculator, pool_number: pool_number], [])

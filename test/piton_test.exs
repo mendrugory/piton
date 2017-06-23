@@ -3,6 +3,7 @@ defmodule PitonTest do
   doctest Piton
 
   test "My own Python Port" do
+    IO.puts "Running test: My own Python Port ..."
     defmodule MyPythonFibCalculator do
       use Piton.Port
       def start_link(), do: MyPythonFibCalculator.start_link([path: Path.expand("test/pythons_test"), python: "python"], [name: __MODULE__])
