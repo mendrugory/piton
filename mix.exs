@@ -1,12 +1,12 @@
 defmodule Piton.Mixfile do
   use Mix.Project
 
-  @version "0.2.0"
+  @version "0.2.1"
 
   def project do
     [app: :piton,
      version: @version,
-     elixir: "~> 1.4",
+     elixir: "~> 1.5",
      package: package(),
      description: "Run your Python algorithms in parallel and avoid the GIL",
      build_embedded: Mix.env == :prod,
