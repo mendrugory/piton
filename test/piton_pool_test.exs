@@ -1,6 +1,6 @@
 defmodule PitonPoolTest do
   use ExUnit.Case
-  
+
 
   test "1 call to the Pool (Calls < Pool)" do
     IO.puts "Running test: 1 call to the Pool (Calls < Pool) ..."
