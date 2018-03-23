@@ -1,6 +1,5 @@
 defmodule PitonTest do
   use ExUnit.Case
-  doctest Piton
 
   test "My own Python Port" do
     IO.puts("Running test: My own Python Port ...")
