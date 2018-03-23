@@ -1,7 +1,5 @@
 defmodule Piton.PoolFunctions do
-  @moduledoc"""
-
-  """
+  @moduledoc false
 
   @doc """
   It receives a queue of Pythons and returns the first one and the new queue.
@@ -25,5 +23,4 @@ defmodule Piton.PoolFunctions do
   {1, [2, 3, 4]}
   """
   def push_lifo(item, queue), do: [item | queue]
-
 end

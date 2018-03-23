@@ -1,5 +1,5 @@
 defmodule Piton.Pool do
-  @moduledoc"""
+  @moduledoc """
   `Piton.Pool` is a `GenServer` which will be on charge of a pool of `Piton.Port`s.
 
   `Piton.Pool` will launch as many Python processes as you define in `pool_number` and it will share them between all the request (executions)
@@ -22,8 +22,8 @@ defmodule Piton.Pool do
   `Piton.Port.execution` function has a `timeout`, this timeout will be passes as timeout to the `Piton.Port.execution` function.
   """
 
-  @timeout          5000
-  
+  @timeout 5000
+
   use GenServer
   alias Piton.PoolFunctions
   require Logger
@@ -52,21 +52,37 @@ defmodule Piton.Pool do
   @spec get_number_of_waiting_processes(pid) :: integer
   def get_number_of_waiting_processes(pid), do: GenServer.call(pid, :number_of_waiting_processes)
 
-  def init([module: module, pool_number: pool_number]) do
+  def init(module: module, pool_number: pool_number) do
     py_ports = for _ <- 1..pool_number, do: module.start() |> elem(1)
     Enum.each(py_ports, fn py_port -> Process.monitor(py_port) end)
     {:ok, %{py_ports: py_ports, waiting_processes: [], module: module}}
   end
 
-  def handle_call({:execute, python_function, python_arguments, timeout}, from, %{py_ports: py_ports, waiting_processes: waiting_processes, module: module}) do
+  def handle_call({:execute, python_function, python_arguments, timeout}, from, %{
+        py_ports: py_ports,
+        waiting_processes: waiting_processes,
+        module: module
+      }) do
     pool = self()
+
     case PoolFunctions.get_lifo(py_ports) do
       {nil, new_py_ports} ->
         new_waiting = {module, python_function, python_arguments, from, pool, timeout}
-        {:noreply, %{py_ports: new_py_ports, waiting_processes: [new_waiting | waiting_processes], module: module}}
+
+        {:noreply,
+         %{
+           py_ports: new_py_ports,
+           waiting_processes: [new_waiting | waiting_processes],
+           module: module
+         }}
+
       {py_port, new_py_ports} ->
-        Task.start(fn -> run({py_port, module, python_function, python_arguments, from, pool, timeout}) end)
-        {:noreply, %{py_ports: new_py_ports, waiting_processes: waiting_processes, module: module}}
+        Task.start(fn ->
+          run({py_port, module, python_function, python_arguments, from, pool, timeout})
+        end)
+
+        {:noreply,
+         %{py_ports: new_py_ports, waiting_processes: waiting_processes, module: module}}
     end
   end
 
@@ -78,8 +94,13 @@ defmodule Piton.Pool do
     {:reply, length(state[:waiting_processes]), state}
   end
 
-  def handle_cast({:return_py_port, py_port}, %{py_ports: py_ports, waiting_processes: waiting_processes} = state) do
-    {new_py_ports, new_waiting_processes} = check_and_run_waiting_process(py_port, py_ports, waiting_processes)
+  def handle_cast(
+        {:return_py_port, py_port},
+        %{py_ports: py_ports, waiting_processes: waiting_processes} = state
+      ) do
+    {new_py_ports, new_waiting_processes} =
+      check_and_run_waiting_process(py_port, py_ports, waiting_processes)
+
     {:noreply, %{state | py_ports: new_py_ports, waiting_processes: new_waiting_processes}}
   end
 
@@ -87,10 +108,16 @@ defmodule Piton.Pool do
     {:noreply, state}
   end
 
-  def handle_info({:DOWN, _ref, :process, _pid, _msg}, %{py_ports: py_ports, module: module, waiting_processes: waiting_processes} = state) do
+  def handle_info(
+        {:DOWN, _ref, :process, _pid, _msg},
+        %{py_ports: py_ports, module: module, waiting_processes: waiting_processes} = state
+      ) do
     py_port = module.start() |> elem(1)
     Process.monitor(py_port)
-    {new_py_ports, new_waiting_processes} = check_and_run_waiting_process(py_port, py_ports, waiting_processes)
+
+    {new_py_ports, new_waiting_processes} =
+      check_and_run_waiting_process(py_port, py_ports, waiting_processes)
+
     {:noreply, %{state | py_ports: new_py_ports, waiting_processes: new_waiting_processes}}
   end
 

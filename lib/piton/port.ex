@@ -1,5 +1,5 @@
 defmodule Piton.Port do
-  @moduledoc"""
+  @moduledoc """
   `Piton.Port` is a `GenServer` which will be on charge of the Python Port.
 
   It is prepared to be the base of your own Port.
@@ -36,7 +36,7 @@ defmodule Piton.Port do
     quote do
       use GenServer
 
-      @timeout          5000
+      @timeout 5000
 
       def start_link(args, opts) do
         GenServer.start_link(__MODULE__, args, opts)
@@ -60,8 +60,10 @@ defmodule Piton.Port do
         GenServer.call(pid, {:execute, python_module, python_function, python_arguments}, timeout)
       end
 
-      def init([path: path, python: python]) do
-        {:ok, py_port} = :python.start([{:python_path, to_char_list(path)}, {:python, to_char_list(python)}])
+      def init(path: path, python: python) do
+        {:ok, py_port} =
+          :python.start([{:python_path, to_charlist(path)}, {:python, to_charlist(python)}])
+
         Process.link(py_port)
         {:ok, %{py_port: py_port}}
       end
@@ -71,7 +73,14 @@ defmodule Piton.Port do
       end
 
       def handle_call({:execute, python_module, python_function, python_arguments}, _from, state) do
-        result = Piton.PythonFunctions.call(state[:py_port], python_module, python_function, python_arguments)
+        result =
+          Piton.PythonFunctions.call(
+            state[:py_port],
+            python_module,
+            python_function,
+            python_arguments
+          )
+
         {:reply, result, state}
       end
 
@@ -82,8 +91,6 @@ defmodule Piton.Port do
       def handle_info(_msg, state) do
         {:noreply, state}
       end
-
     end
   end
-
 end

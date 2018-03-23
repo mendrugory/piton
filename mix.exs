@@ -1,19 +1,25 @@
 defmodule Piton.Mixfile do
   use Mix.Project
 
-  @version "0.2.1"
+  @version "0.3.0"
 
   def project do
-    [app: :piton,
-     version: @version,
-     elixir: "~> 1.5",
-     package: package(),
-     description: "Run your Python algorithms in parallel and avoid the GIL",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps(),
-     docs: [main: "Piton", source_ref: "v#{@version}",
-     source_url: "https://github.com/mendrugory/piton"]]
+    [
+      app: :piton,
+      version: @version,
+      elixir: "~> 1.6",
+      package: package(),
+      description: "Run your Python algorithms in parallel and avoid the GIL",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      docs: [
+        main: "readme",
+        source_ref: "v#{@version}",
+        extras: ["README.md"],
+        source_url: "https://github.com/mendrugory/piton"
+      ]
+    ]
   end
 
   def application do
@@ -21,17 +27,19 @@ defmodule Piton.Mixfile do
   end
 
   defp deps() do
-    [{:erlport, "~> 0.9.8"},
-    {:earmark, ">= 0.0.0", only: :dev},
-    {:ex_doc, ">= 0.0.0", only: :dev},
-    {:poison, ">= 0.0.0", only: :test}
+    [
+      {:erlport, "~> 0.9.8"},
+      {:earmark, ">= 0.0.0", only: :dev},
+      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:poison, ">= 0.0.0", only: :test}
     ]
   end
 
   defp package() do
-    %{licenses: ["MIT"],
+    %{
+      licenses: ["MIT"],
       maintainers: ["Gonzalo Jiménez Fuentes"],
-      links: %{"GitHub" => "https://github.com/mendrugory/piton"}}
+      links: %{"GitHub" => "https://github.com/mendrugory/piton"}
+    }
   end
-  
 end
