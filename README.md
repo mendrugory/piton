@@ -14,7 +14,7 @@
 
   ```elixir
   def deps do
-    [{:piton, "~> 0.3.0"}]
+    [{:piton, "~> 0.4.0"}]
   end
   ```
     
