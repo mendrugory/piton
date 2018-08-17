@@ -1,13 +1,13 @@
 defmodule Piton.Mixfile do
   use Mix.Project
 
-  @version "0.3.0"
+  @version "0.4.0"
 
   def project do
     [
       app: :piton,
       version: @version,
-      elixir: "~> 1.6",
+      elixir: "~> 1.7",
       package: package(),
       description: "Run your Python algorithms in parallel and avoid the GIL",
       build_embedded: Mix.env() == :prod,
@@ -28,7 +28,7 @@ defmodule Piton.Mixfile do
 
   defp deps() do
     [
-      {:erlport, "~> 0.9.8"},
+      {:erlport, "~> 0.10.0"},
       {:earmark, ">= 0.0.0", only: :dev},
       {:ex_doc, ">= 0.0.0", only: :dev},
       {:poison, ">= 0.0.0", only: :test}

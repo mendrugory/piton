@@ -1,9 +1,9 @@
 language: elixir
 elixir:
-  - 1.6.0
+  - 1.7.0
 sudo: false
 notifications:
   recipients:
-    - mendrugory@gmail.com
+    - iam@mendrugory.com
 otp_release:
-- 20.2
+- 21.0
