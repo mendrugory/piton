@@ -1,6 +1,6 @@
 # Piton
 
-[![hex.pm](https://img.shields.io/hexpm/v/piton.svg?style=flat-square)](https://hex.pm/packages/piton) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/piton/) [![GitHub Actions](https://github.com/mendrugory/piton/workflows/Publish%20to%20Hex.pm/badge.svg)](https://github.com/mendrugory/piton/actions)
+[![hex.pm](https://img.shields.io/hexpm/v/piton.svg?style=flat-square)](https://hex.pm/packages/piton) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/piton/) [![CI](https://github.com/mendrugory/piton/workflows/CI/badge.svg)](https://github.com/mendrugory/piton/actions) [![Publish](https://github.com/mendrugory/piton/workflows/Publish%20to%20Hex.pm/badge.svg)](https://github.com/mendrugory/piton/actions)
 
  `Piton` is a library which will help you to run your Python code. 
 
@@ -86,6 +86,21 @@
 ## CI/CD
 
 This project uses GitHub Actions for continuous integration and deployment:
+
+### Continuous Integration (CI)
+
+Every push and pull request triggers automated tests.
+
+**Workflow**: `.github/workflows/ci.yml`
+
+The CI workflow:
+- ✅ Runs on Elixir 1.19.2 and OTP 27.1
+- ✅ Compiles code with warnings as errors
+- ✅ Runs full test suite
+- ✅ Checks code formatting
+- ✅ Caches dependencies for faster builds
+
+**Branches monitored**: `main`, `master`, `feat/elixir1_19`, and all pull requests
 
 ### Automatic Publishing to Hex.pm
 

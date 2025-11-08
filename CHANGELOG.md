@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for Elixir 1.19.x
 - Support for Erlang/OTP 27
 - GitHub Actions workflow for automatic publishing to Hex.pm on release
+- GitHub Actions CI workflow for automated testing on every push/PR
 - `.tool-versions` file for asdf version management
 - CHANGELOG.md file
 - Using Elixir's built-in JSON module instead of external libraries
