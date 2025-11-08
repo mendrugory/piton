@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **BREAKING**: Minimum Elixir version requirement changed to ~> 1.19
+- **BREAKING**: Python 2.x support dropped, now requires Python 3.x
 - Updated dependency versions:
   - `erlport` to ~> 0.11.0
   - `earmark` to ~> 1.4

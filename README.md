@@ -11,7 +11,7 @@
 ## Requirements
 
   * Elixir ~> 1.19
-  * Python 2.x or 3.x
+  * Python 3.x
   * Erlang/OTP 27
 
 ## Installation
