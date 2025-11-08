@@ -10,7 +10,7 @@ defmodule PitonTest do
       def start_link(),
         do:
           MyPythonFibCalculator.start_link(
-            [path: Path.expand("test/pythons_test"), python: "python"],
+            [path: Path.expand("test/pythons_test"), python: "python3"],
             name: __MODULE__
           )
 

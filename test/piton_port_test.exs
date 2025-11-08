@@ -1,12 +1,11 @@
 defmodule PitonPortTest do
   use ExUnit.Case
-  alias Poison
 
   test "Generic Port. Python Fib function" do
     IO.puts("Running test: Generic Port. Python Fib function ...")
 
     {:ok, python_port} =
-      MyPort.start([path: Path.expand("test/pythons_test"), python: "python"], [])
+      MyPort.start([path: Path.expand("test/pythons_test"), python: "python3"], [])
 
     result = MyPort.execute(python_port, :functions, :fib, [10])
     assert(result == 55)
@@ -16,7 +15,7 @@ defmodule PitonPortTest do
     IO.puts("Running test: Generic Port. Multiple Python Fib function through Piton ...")
 
     {:ok, python_port} =
-      MyPort.start([path: Path.expand("test/pythons_test"), python: "python"], [])
+      MyPort.start([path: Path.expand("test/pythons_test"), python: "python3"], [])
 
     results = for i <- 1..20, do: MyPort.execute(python_port, :functions, :fib, [i])
 
@@ -50,7 +49,7 @@ defmodule PitonPortTest do
     IO.puts("Running test: Generic Port. Python Fib function string module Piton ...")
 
     {:ok, python_port} =
-      MyPort.start([path: Path.expand("test/pythons_test"), python: "python"], [])
+      MyPort.start([path: Path.expand("test/pythons_test"), python: "python3"], [])
 
     result = MyPort.execute(python_port, "functions", :fib, [10])
     assert(result == 55)
@@ -60,7 +59,7 @@ defmodule PitonPortTest do
     IO.puts("Running test: Generic Port. Python Fib function string function ...")
 
     {:ok, python_port} =
-      MyPort.start([path: Path.expand("test/pythons_test"), python: "python"], [])
+      MyPort.start([path: Path.expand("test/pythons_test"), python: "python3"], [])
 
     result = MyPort.execute(python_port, :functions, "fib", [10])
     assert(result == 55)
@@ -70,7 +69,7 @@ defmodule PitonPortTest do
     IO.puts("Running test: Generic Port. Python Fib function string module and function ...")
 
     {:ok, python_port} =
-      MyPort.start([path: Path.expand("test/pythons_test"), python: "python"], [])
+      MyPort.start([path: Path.expand("test/pythons_test"), python: "python3"], [])
 
     result = MyPort.execute(python_port, "functions", "fib", [10])
     assert(result == 55)
@@ -82,14 +81,14 @@ defmodule PitonPortTest do
     )
 
     {:ok, python_port} =
-      MyPort.start([path: Path.expand("test/pythons_test"), python: "python"], [])
+      MyPort.start([path: Path.expand("test/pythons_test"), python: "python3"], [])
 
     json_result =
       MyPort.execute(python_port, "functions", "json_fib", [
-        Poison.encode!(%{message: "Fib Json", number: 10})
+        JSON.encode!(%{message: "Fib Json", number: 10})
       ])
 
-    result = Poison.decode!(json_result) |> Map.get("result")
+    result = json_result |> to_string() |> JSON.decode!() |> Map.get("result")
     assert(result == 55)
   end
 end

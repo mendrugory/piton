@@ -7,7 +7,7 @@ defmodule MyPythonFibCalculator do
   @timeout 5000
   def start(),
     do:
-      MyPythonFibCalculator.start([path: Path.expand("test/pythons_test"), python: "python"], [])
+      MyPythonFibCalculator.start([path: Path.expand("test/pythons_test"), python: "python3"], [])
 
   def fib(python, n, timeout \\ @timeout),
     do: MyPythonFibCalculator.execute(python, :functions, :fib, [n], timeout)

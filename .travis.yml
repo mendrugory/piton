@@ -1,9 +1,0 @@
-language: elixir
-elixir:
-  - 1.7.0
-sudo: false
-notifications:
-  recipients:
-    - iam@mendrugory.com
-otp_release:
-- 21.0

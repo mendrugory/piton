@@ -1,7 +1,6 @@
 # Piton
 
-
-[![hex.pm](https://img.shields.io/hexpm/v/piton.svg?style=flat-square)](https://hex.pm/packages/piton) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/piton/) [![Build Status](https://travis-ci.org/mendrugory/piton.svg?branch=master)](https://travis-ci.org/mendrugory/piton)
+[![hex.pm](https://img.shields.io/hexpm/v/piton.svg?style=flat-square)](https://hex.pm/packages/piton) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/piton/) [![CI](https://github.com/mendrugory/piton/workflows/CI/badge.svg)](https://github.com/mendrugory/piton/actions) [![Publish](https://github.com/mendrugory/piton/workflows/Publish%20to%20Hex.pm/badge.svg)](https://github.com/mendrugory/piton/actions)
 
  `Piton` is a library which will help you to run your Python code. 
 
@@ -9,12 +8,18 @@
   a pool which will allow to run Python code in parallel, a way of avoiding the GIL, and it will protect you from 
   python exceptions.
 
+## Requirements
+
+  * Elixir ~> 1.19
+  * Python 3.x
+  * Erlang/OTP 27
+
 ## Installation
   Add `piton` to your list of dependencies in `mix.exs`:
 
   ```elixir
   def deps do
-    [{:piton, "~> 0.4.0"}]
+    [{:piton, "~> 0.5.0"}]
   end
   ```
     
@@ -73,10 +78,56 @@
   * `Mix.Tasks.Piton.Requirements`: It gets the dependencies of the Python project.
   
 ## Test
-  Run the tests.
+  
+  Before running tests, create a Python virtual environment:
+  ```bash
+  python3 -m venv test/venv
+  ```
+  
+  Then run the tests:
   ```bash
   mix test 
   ```
+
+## CI/CD
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+### Continuous Integration (CI)
+
+Every push and pull request triggers automated tests.
+
+**Workflow**: `.github/workflows/ci.yml`
+
+The CI workflow:
+- ✅ Runs on Elixir 1.19.2 and OTP 27.1
+- ✅ Compiles code with warnings as errors
+- ✅ Runs full test suite
+- ✅ Checks code formatting
+- ✅ Caches dependencies for faster builds
+
+**Triggers**: All branches on push and all pull requests
+
+### Automatic Publishing to Hex.pm
+
+When you create a new GitHub release, the package is automatically published to [Hex.pm](https://hex.pm/packages/piton).
+
+**Workflow**: `.github/workflows/publish.yml`
+
+The workflow:
+- ✅ Runs on Elixir 1.19.2 and OTP 27.1
+- ✅ Installs dependencies with caching
+- ✅ Runs tests before publishing
+- ✅ Automatically publishes to Hex.pm on release
+
+**To publish a new version:**
+1. Update the version in `mix.exs`
+2. Update `CHANGELOG.md` with changes
+3. Commit and push changes
+4. Create a new GitHub release (e.g., `v0.5.0`)
+5. The package will be automatically published to Hex.pm
+
+**Required Secret**: `HEX_KEY` - Your Hex.pm API key must be added to GitHub repository secrets.
   
 ## Name
   Pitón is only Python in Spanish :stuck_out_tongue_winking_eye: :snake:
