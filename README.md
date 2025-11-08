@@ -9,12 +9,18 @@
   a pool which will allow to run Python code in parallel, a way of avoiding the GIL, and it will protect you from 
   python exceptions.
 
+## Requirements
+
+  * Elixir ~> 1.7 (supports up to Elixir 1.19)
+  * Python 2.x or 3.x
+  * Erlang/OTP 21.0 or later (tested up to OTP 27)
+
 ## Installation
   Add `piton` to your list of dependencies in `mix.exs`:
 
   ```elixir
   def deps do
-    [{:piton, "~> 0.4.0"}]
+    [{:piton, "~> 0.5.0"}]
   end
   ```
     
