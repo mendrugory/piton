@@ -78,7 +78,13 @@
   * `Mix.Tasks.Piton.Requirements`: It gets the dependencies of the Python project.
   
 ## Test
-  Run the tests.
+  
+  Before running tests, create a Python virtual environment:
+  ```bash
+  python3 -m venv test/venv
+  ```
+  
+  Then run the tests:
   ```bash
   mix test 
   ```

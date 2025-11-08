@@ -31,6 +31,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Compatibility with modern Elixir versions
+- Python virtual environment setup in CI workflows
+- Added Python venv creation step to prevent test failures
 
 ## [0.4.0] - Previous Release
 
