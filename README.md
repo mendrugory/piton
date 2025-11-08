@@ -11,9 +11,9 @@
 
 ## Requirements
 
-  * Elixir ~> 1.7 (supports up to Elixir 1.19)
+  * Elixir ~> 1.19
   * Python 2.x or 3.x
-  * Erlang/OTP 21.0 or later (tested up to OTP 27)
+  * Erlang/OTP 27
 
 ## Installation
   Add `piton` to your list of dependencies in `mix.exs`:

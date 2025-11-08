@@ -1,6 +1,5 @@
 defmodule PitonPortTest do
   use ExUnit.Case
-  alias Poison
 
   test "Generic Port. Python Fib function" do
     IO.puts("Running test: Generic Port. Python Fib function ...")
@@ -86,10 +85,10 @@ defmodule PitonPortTest do
 
     json_result =
       MyPort.execute(python_port, "functions", "json_fib", [
-        Poison.encode!(%{message: "Fib Json", number: 10})
+        JSON.encode!(%{message: "Fib Json", number: 10})
       ])
 
-    result = Poison.decode!(json_result) |> Map.get("result")
+    result = JSON.decode!(json_result) |> Map.get("result")
     assert(result == 55)
   end
 end

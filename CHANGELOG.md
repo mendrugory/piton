@@ -13,14 +13,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions workflow for automatic publishing to Hex.pm on release
 - `.tool-versions` file for asdf version management
 - CHANGELOG.md file
+- Using Elixir's built-in JSON module instead of external libraries
 
 ### Changed
-- Updated minimum Elixir version requirement to ~> 1.7 (now supports up to 1.19)
+- **BREAKING**: Minimum Elixir version requirement changed to ~> 1.19
 - Updated dependency versions:
   - `earmark` to ~> 1.4
   - `ex_doc` to ~> 0.31
-  - `poison` to ~> 5.0
 - Updated README with requirements section
+- Replaced `Poison` with Elixir's built-in `JSON` module
+
+### Removed
+- Dependency on `poison` library (using Elixir's built-in JSON support)
 
 ### Fixed
 - Compatibility with modern Elixir versions
