@@ -100,7 +100,7 @@ The CI workflow:
 - ✅ Checks code formatting
 - ✅ Caches dependencies for faster builds
 
-**Branches monitored**: `main`, `master`, `feat/elixir1_19`, and all pull requests
+**Branches monitored**: `master`, `feat/elixir1_19`, and all pull requests
 
 ### Automatic Publishing to Hex.pm
 
