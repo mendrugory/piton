@@ -2,9 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ master, feat/elixir1_19 ]
   pull_request:
-    branches: [ master ]
 
 jobs:
   test:
