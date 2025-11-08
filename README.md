@@ -1,7 +1,6 @@
 # Piton
 
-
-[![hex.pm](https://img.shields.io/hexpm/v/piton.svg?style=flat-square)](https://hex.pm/packages/piton) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/piton/) [![Build Status](https://travis-ci.org/mendrugory/piton.svg?branch=master)](https://travis-ci.org/mendrugory/piton)
+[![hex.pm](https://img.shields.io/hexpm/v/piton.svg?style=flat-square)](https://hex.pm/packages/piton) [![hexdocs.pm](https://img.shields.io/badge/docs-latest-green.svg?style=flat-square)](https://hexdocs.pm/piton/) [![GitHub Actions](https://github.com/mendrugory/piton/workflows/Publish%20to%20Hex.pm/badge.svg)](https://github.com/mendrugory/piton/actions)
 
  `Piton` is a library which will help you to run your Python code. 
 
@@ -83,6 +82,31 @@
   ```bash
   mix test 
   ```
+
+## CI/CD
+
+This project uses GitHub Actions for continuous integration and deployment:
+
+### Automatic Publishing to Hex.pm
+
+When you create a new GitHub release, the package is automatically published to [Hex.pm](https://hex.pm/packages/piton).
+
+**Workflow**: `.github/workflows/publish.yml`
+
+The workflow:
+- ✅ Runs on Elixir 1.19.2 and OTP 27.1
+- ✅ Installs dependencies with caching
+- ✅ Runs tests before publishing
+- ✅ Automatically publishes to Hex.pm on release
+
+**To publish a new version:**
+1. Update the version in `mix.exs`
+2. Update `CHANGELOG.md` with changes
+3. Commit and push changes
+4. Create a new GitHub release (e.g., `v0.5.0`)
+5. The package will be automatically published to Hex.pm
+
+**Required Secret**: `HEX_KEY` - Your Hex.pm API key must be added to GitHub repository secrets.
   
 ## Name
   Pitón is only Python in Spanish :stuck_out_tongue_winking_eye: :snake:

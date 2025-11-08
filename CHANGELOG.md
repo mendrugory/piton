@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - Dependency on `poison` library (using Elixir's built-in JSON support)
+- Travis CI configuration and badge (migrated to GitHub Actions)
 
 ### Fixed
 - Compatibility with modern Elixir versions
