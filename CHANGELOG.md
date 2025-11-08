@@ -18,8 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **BREAKING**: Minimum Elixir version requirement changed to ~> 1.19
 - Updated dependency versions:
+  - `erlport` to ~> 0.11.0
   - `earmark` to ~> 1.4
-  - `ex_doc` to ~> 0.31
+  - `ex_doc` to ~> 0.39.1
 - Updated README with requirements section
 - Replaced `Poison` with Elixir's built-in `JSON` module
 

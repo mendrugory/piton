@@ -28,9 +28,9 @@ defmodule Piton.Mixfile do
 
   defp deps() do
     [
-      {:erlport, "~> 0.10.0"},
+      {:erlport, "~> 0.11.0"},
       {:earmark, "~> 1.4", only: :dev, runtime: false},
-      {:ex_doc, "~> 0.31", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.39.1", only: :dev, runtime: false}
     ]
   end
 
